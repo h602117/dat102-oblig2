@@ -136,7 +136,7 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 
 		if (this.antall != m2.antall()) {
 			return false;
-		} 
+		}
 
 		Iterator<T> it = m2.iterator();
 		while (it.hasNext()) {
@@ -160,72 +160,67 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 
 	@Override
 	public MengdeADT<T> union(MengdeADT<T> m2) {
-		// TODO - lage en mer effektiv kode
-		MengdeADT<T> begge = new KjedetMengde<T>();
-		LinearNode<T> aktuell = start;
-		T element = null;
+		MengdeADT<T> _union = new KjedetMengde<T>();
+		Iterator<T> it1 = m2.iterator();
+		Iterator<T> it2 = this.iterator();
 
-		while (aktuell != null) {// ubetinget innsetting
-			((KjedetMengde<T>) begge).settInn(aktuell.getElement());
-			aktuell = aktuell.getNeste();
+		while (it1.hasNext()) {
+			_union.leggTil(it1.next());
 		}
 
-		Iterator<T> teller = m2.iterator();
-		while (teller.hasNext()) {
-			element = teller.next();
-			if (!this.inneholder(element)) {// tester mot "konstant" mengde
-				((KjedetMengde<T>) begge).settInn(element);
-			}
+		while(it2.hasNext()) {
+			_union.leggTil(it2.next());
 		}
 
-		return begge;
+		return _union;
 	}
 
 	@Override
 	public MengdeADT<T> snitt(MengdeADT<T> m2) {
-		// TODO
-		MengdeADT<T> snittM = new KjedetMengde<T>();
-		T element;
-		/*
-		 * ..
-		 * 
-		 * if (this.inneholder(element)) ((KjedetMengde<T>) snittM).settInn(element);
-		 */
-		return snittM;
+		MengdeADT<T> _snitt = new KjedetMengde<T>();
+		Iterator<T> it = m2.iterator();
+
+		while (it.hasNext()) {
+			T el = it.next();
+			if (this.inneholder(el)) {
+				_snitt.leggTil(el);
+			}
+		}
+
+		return _snitt;
 	}
 
 	@Override
 	public MengdeADT<T> differens(MengdeADT<T> m2) {
-		// TODO
-		MengdeADT<T> differensM = new KjedetMengde<T>();
-		T element;
-		/*
-		 * Fyll ut
-		 * 
-		 */
+		MengdeADT<T> _differens = new KjedetMengde<T>();
+		Iterator<T> it = this.iterator();
 
-		return differensM;
+		while (it.hasNext()) {
+			T el = it.next();
+			if (!m2.inneholder(el)) {
+				_differens.leggTil(el);
+			}
+		}
+
+		return _differens;
 	}
 
 	@Override
 	public boolean undermengde(MengdeADT<T> m2) {
-		// TODO
-		boolean erUnderMengde = true;
-		// ...
-		return erUnderMengde;
+		Iterator<T> it = m2.iterator();
+
+		while (it.hasNext()) {
+			if (!this.inneholder(it.next())) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	@Override
 	public Iterator<T> iterator() {
 		return new KjedetIterator<T>(start);
 	}
-
-	private void settInn(T element) {
-		LinearNode<T> nyNode = new LinearNode<T>(element);
-		nyNode.setNeste(start);
-		start = nyNode;
-		antall++;
-	}
-
 
 }
