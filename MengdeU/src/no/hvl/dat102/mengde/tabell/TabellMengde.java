@@ -8,8 +8,6 @@ import no.hvl.dat102.exception.EmptyCollectionException;
 import no.hvl.dat102.mengde.adt.MengdeADT;
 
 public class TabellMengde<T> implements MengdeADT<T> {
-	// ADT-en Mengde implementert som tabell
-	//
 	private final static Random tilf = new Random();
 	private final static int STDK = 100;
 	private int antall;
@@ -77,8 +75,6 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
 	@Override
 	public T fjern(T element) {
-	
-		// Søker etter og fjerner element. Returnerer null-ref ved ikke-funn
 
 		if (erTom())
 			throw new EmptyCollectionException("mengde");
@@ -89,7 +85,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 			if(tab[i].equals(element)) {
 				svar = tab[i];
 				tab[i] = tab[antall-1];
-				//tab[antall-1] = null;
+				tab[antall-1] = null;
 				antall--;
 				funnet = true;
 				
@@ -109,11 +105,6 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		return (funnet);
 	}
 	
-	/*
-	 * Når vi overkjører (override) equals- meteoden er det anbefalt at vi også
-	 * overkjører hascode-metoden da en del biblioterker burker hascode sammen med
-	 * equals. Vi kommer tilbake til forklaring og bruk av hascode senere i faget.
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -135,18 +126,6 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		return likeMengder;
 	}
 
-	
-
-	/*
-	 * Denne versjonen av unionen er lite effektiv
-	 * 
-	 * @Override public MengdeADT<T> union(MengdeADT<T> m2) { TabellMengde<T> begge
-	 * = new TabellMengde<T>(); for (int i = 0; i < antall; i++) {
-	 * begge.leggTil(tab[i]); } Iterator<T> teller = m2.oppramser();
-	 * 
-	 * while (teller.hasNext()) { begge.leggTil(teller.next()); } return
-	 * (MengdeADT<T>)begge; }
-	 */
 	@Override
 
 	public MengdeADT<T> union(MengdeADT<T> m2) {
@@ -158,7 +137,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		 * 
 		 */
 		return begge;
-	}//
+	}
 
 	@Override
 	public MengdeADT<T> snitt(MengdeADT<T> m2) {
@@ -207,4 +186,4 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
 	
 
-}// class
+}

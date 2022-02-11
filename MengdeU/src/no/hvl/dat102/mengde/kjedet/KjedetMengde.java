@@ -1,8 +1,5 @@
 package no.hvl.dat102.mengde.kjedet;
 
-//********************************************************************
-// Kjedet implementasjon av en mengde. 
-//********************************************************************
 import java.util.Iterator;
 import java.util.Random;
 
@@ -11,16 +8,13 @@ import no.hvl.dat102.mengde.adt.MengdeADT;
 
 public class KjedetMengde<T> implements MengdeADT<T> {
 	private static Random rand = new Random();
-	private int antall; // antall elementer i mengden
+	private int antall;
 	private LinearNode<T> start;
 
-	/**
-	 * Oppretter en tom mengde.
-	 */
 	public KjedetMengde() {
 		antall = 0;
 		start = null;
-	}//
+	}
 
 	@Override
 	public void leggTil(T element) {
@@ -65,7 +59,7 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 
 		return resultat;
 
-	}//
+	}
 
 	@Override
 	public T fjern(T element) {
@@ -76,29 +70,30 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 		boolean funnet = false;
 		LinearNode<T> forgjenger, aktuell;
 		T resultat = null;
-		if (start.getElement().equals(element)) {// Sletter foran
+		if (start.getElement().equals(element)) {
 			resultat = start.getElement();
 			start = start.getNeste();
 			antall--;
-		} else {// Gjennomgår den kjedete strukturen
+		} else {
 			forgjenger = start;
 			aktuell = start.getNeste();
 			for (int sok = 2; sok <= antall && !funnet; sok++) {
 				if (aktuell.getElement().equals(element))
 					funnet = true;
 				else {
-					forgjenger = aktuell.getNeste();
+					forgjenger = aktuell;
+					aktuell = aktuell.getNeste();
 				}
 			}
 			if (funnet) {
 				resultat = aktuell.getElement();
-				forgjenger.setNeste(aktuell.getNeste()); // Slette midt inni/bak
+				forgjenger.setNeste(aktuell.getNeste());
 				antall--;
 			}
 		}
 		return resultat;
 
-	}//
+	}
 
 	@Override
 	public boolean inneholder(T element) {
@@ -113,11 +108,6 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 		}
 		return funnet;
 	}
-	/*
-	 * Når vi overkjører (override) equals- meteoden er det anbefalt at vi også
-	 * overkjører hashcode-metoden da en del biblioteker bruker hascode sammen med
-	 * equals. Vi kommer tilbake til forklaring og bruk av hashcode senere i faget.
-	 */
 
 	@Override
 	public int hashCode() {
@@ -190,7 +180,7 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 		}
 
 		return begge;
-	}//
+	}
 
 	@Override
 	public MengdeADT<T> snitt(MengdeADT<T> m2) {
@@ -239,4 +229,4 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 	}
 
 
-}// class
+}
