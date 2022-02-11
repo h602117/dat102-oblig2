@@ -145,63 +145,68 @@ public class TabellMengde<T> implements MengdeADT<T> {
 	}
 
 	@Override
-
 	public MengdeADT<T> union(MengdeADT<T> m2) {
-		//TODO - Lage en mer effektiv kode
-		MengdeADT<T> begge = new TabellMengde<T>();
-		T element = null;
-		/*
-		 * ...
-		 * 
-		 */
-		return begge;
+		MengdeADT<T> _union = new TabellMengde<T>();
+		Iterator<T> it1 = m2.iterator();
+		Iterator<T> it2 = this.iterator();
+
+		while (it1.hasNext()) {
+			_union.leggTil(it1.next());
+		}
+
+		while(it2.hasNext()) {
+			_union.leggTil(it2.next());
+		}
+
+		return _union;
 	}
 
 	@Override
 	public MengdeADT<T> snitt(MengdeADT<T> m2) {
-		MengdeADT<T> snittM = new TabellMengde<T>();
-		T element = null;
-		/*
-		 * ...
-		 */
-		return snittM;
+		MengdeADT<T> _snitt = new TabellMengde<T>();
+		Iterator<T> it = m2.iterator();
+
+		while (it.hasNext()) {
+			T el = it.next();
+			if (this.inneholder(el)) {
+				_snitt.leggTil(el);
+			}
+		}
+
+		return _snitt;
 	}
 
 	@Override
 	public MengdeADT<T> differens(MengdeADT<T> m2) {
-		//TODO
-		MengdeADT<T> differensM = new TabellMengde<T>();
-		T element;
-		/*
-		 * Fyll ut
-		 * 
-		 * if (!m2.inneholder(element)) ((TabellMengde<T>) differensM).settInn(element);
-		 */
+		MengdeADT<T> _differens = new TabellMengde<T>();
+		Iterator<T> it = this.iterator();
 
-		return differensM;
+		while (it.hasNext()) {
+			T el = it.next();
+			if (!m2.inneholder(el)) {
+				_differens.leggTil(el);
+			}
+		}
+
+		return _differens;
 	}
 
 	@Override
 	public boolean undermengde(MengdeADT<T> m2) {
-		//TODO
-		boolean erUnderMengde = true;
-		// ...
-		return false;
+		Iterator<T> it = m2.iterator();
+
+		while (it.hasNext()) {
+			if (!this.inneholder(it.next())) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	@Override
 	public Iterator<T> iterator() {
 		return new TabellIterator<T>(tab, antall);
 	}
-
-	private void settInn(T element) {
-		if (antall == tab.length) {
-			utvidKapasitet();
-		}
-		tab[antall] = element;
-		antall++;
-	}
-
-	
 
 }
