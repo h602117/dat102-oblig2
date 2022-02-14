@@ -161,16 +161,9 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 	@Override
 	public MengdeADT<T> union(MengdeADT<T> m2) {
 		MengdeADT<T> _union = new KjedetMengde<T>();
-		Iterator<T> it1 = m2.iterator();
-		Iterator<T> it2 = this.iterator();
 
-		while (it1.hasNext()) {
-			_union.leggTil(it1.next());
-		}
-
-		while(it2.hasNext()) {
-			_union.leggTil(it2.next());
-		}
+		_union.leggTilAlle(m2);
+		_union.leggTilAlle(this);
 
 		return _union;
 	}

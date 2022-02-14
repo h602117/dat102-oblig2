@@ -42,7 +42,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 			antall++;
 		}
 	}
-	
+
 	@Override
 	public void leggTilAlle(MengdeADT<T> m2) {
 		Iterator<T> teller = m2.iterator();
@@ -67,7 +67,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		int indeks = tilf.nextInt(antall);
 		svar = tab[indeks];
 		tab[indeks] = tab[antall - 1];
-		tab[antall-1]= null;
+		tab[antall - 1] = null;
 		antall--;
 
 		return svar;
@@ -81,14 +81,14 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
 		boolean funnet = false;
 		T svar = null;
-		for(int i = 0; (i < antall && !funnet);i++) {
-			if(tab[i].equals(element)) {
+		for (int i = 0; (i < antall && !funnet); i++) {
+			if (tab[i].equals(element)) {
 				svar = tab[i];
-				tab[i] = tab[antall-1];
-				tab[antall-1] = null;
+				tab[i] = tab[antall - 1];
+				tab[antall - 1] = null;
 				antall--;
 				funnet = true;
-				
+
 			}
 		}
 		return svar;
@@ -104,7 +104,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		}
 		return (funnet);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -135,8 +135,8 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		}
 
 		Iterator<T> it = m2.iterator();
-		while(it.hasNext()) {
-			if(!this.inneholder(it.next())) {
+		while (it.hasNext()) {
+			if (!this.inneholder(it.next())) {
 				return false;
 			}
 		}
@@ -147,16 +147,9 @@ public class TabellMengde<T> implements MengdeADT<T> {
 	@Override
 	public MengdeADT<T> union(MengdeADT<T> m2) {
 		MengdeADT<T> _union = new TabellMengde<T>();
-		Iterator<T> it1 = m2.iterator();
-		Iterator<T> it2 = this.iterator();
 
-		while (it1.hasNext()) {
-			_union.leggTil(it1.next());
-		}
-
-		while(it2.hasNext()) {
-			_union.leggTil(it2.next());
-		}
+		_union.leggTilAlle(m2);
+		_union.leggTilAlle(this);
 
 		return _union;
 	}
