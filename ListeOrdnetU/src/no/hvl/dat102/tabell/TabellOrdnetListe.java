@@ -24,9 +24,11 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (erTom())
 			throw new EmptyCollectionException("ordnet liste");
 
-		T resultat = null;
-		// ... Fyll ut
-		return resultat;
+		T el = this.liste[this.bak];
+		this.liste[this.bak] = null;
+		this.bak--;
+
+		return el;
 	}
 
 	@Override
@@ -34,9 +36,13 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (erTom())
 			throw new EmptyCollectionException("ordnet liste");
 
-		T resultat = null;
-		// ... Fyll ut
-		return resultat;
+		T el = this.liste[0];
+
+		System.arraycopy(this.liste, 0, this.liste, 1, this.bak);
+		this.liste[this.bak] = null;
+		this.bak--;
+
+		return el;
 	}
 
 	@Override
@@ -52,11 +58,8 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 	public T siste() {
 		if (erTom())
 			throw new EmptyCollectionException("ordnet liste");
-		
-		T resultat = null;
-		// ...Fyll ut
 
-		return resultat;
+		return this.liste[this.bak];
 	}
 
 	@Override
@@ -71,8 +74,11 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 
 	@Override
 	public void leggTil(T element) {
+		if (this.bak == this.liste.length - 1) {
+			this.utvid();
+		}
 
-		// ...Fyll ut
+		this.liste[++this.bak] = element;
 	}
 
 	@Override
@@ -112,4 +118,4 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		liste = hjelpeTabell;
 	}
 
-}// class
+}

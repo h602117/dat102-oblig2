@@ -3,17 +3,10 @@ package no.hvl.dat102.kjedet;
 import no.hvl.dat102.adt.OrdnetListeADT;
 import no.hvl.dat102.exceptions.EmptyCollectionException;
 
-/**
- * 
- * @param <T> elementypen
- */
 public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeADT<T> {
 	private int antall;
 	private LinearNode<T> foerste, siste;
 
-	/**
-	 * Lager en ny tom liste.
-	 */
 	public KjedetOrdnetListe() {
 		antall = 0;
 		foerste = null;
@@ -25,9 +18,11 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (erTom())
 			throw new EmptyCollectionException("ordnet liste");
 
-		T resultat = null;
-		// ...Fyll ut
-		return resultat;
+		T el = this.foerste.getElement();
+		this.foerste = this.foerste.getNeste();
+		this.antall--;
+
+		return el;
 	}
 
 	@Override
@@ -35,9 +30,11 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (erTom())
 			throw new EmptyCollectionException("ordnet liste");
 
-		T resultat = null;
-		// ...Fyll ut
-		return resultat;
+		T el = this.siste.getElement();
+		this.siste = null;
+		this.antall--;
+
+		return el;
 	}
 
 	@Override
@@ -45,9 +42,7 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (erTom())
 			throw new EmptyCollectionException("ordnet liste");
 
-		T svar = foerste.getElement();
-
-		return svar;
+		return foerste.getElement();
 	}
 
 	@Override
@@ -55,9 +50,7 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (erTom())
 			throw new EmptyCollectionException("ordnet liste");
 
-		T resultat = siste.getElement();
-
-		return resultat;
+		return siste.getElement();
 	}
 
 	@Override
@@ -72,8 +65,8 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 
 	@Override
 	public void leggTil(T element) {
-
-		// ...Fyll ut
+		siste.setNeste(new LinearNode<T>(element));
+		this.antall++;
 	}
 
 	@Override
@@ -84,21 +77,21 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 			forrige = denne;
 			denne = denne.getNeste();
 		}
-		if (denne != null && element.equals(denne.getElement())) { // funnet
+		if (denne != null && element.equals(denne.getElement())) {
 			antall--;
 			svar = denne.getElement();
-			if (forrige == null) { // Første element
+			if (forrige == null) {
 				foerste = foerste.getNeste();
-				if (foerste == null) { // Tom liste
+				if (foerste == null) {
 					siste = null;
 				}
-			} else { // Inni listen eller bak
+			} else {
 				forrige.setNeste(denne.getNeste());
-				if (denne == siste) { // bak
+				if (denne == siste) {
 					siste = forrige;
 				}
 			}
-		} // ikke-funn
+		}
 		return svar;
 	}
 
@@ -113,8 +106,8 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 			if (element.equals(denne.getElement())) {
 				resultat = true;
 			}
-		} // ikke-funn
+		}
 		return resultat;
 	}
 
-}// class
+}
