@@ -23,6 +23,15 @@ public class TabellMengde<T> implements MengdeADT<T> {
 	}
 
 	@Override
+	public T get(int idx) {
+		if (idx < 0 || idx >= this.antall) {
+			return null;
+		}
+
+		return this.tab[idx];
+	}
+
+	@Override
 	public int antall() {
 		return antall;
 	}

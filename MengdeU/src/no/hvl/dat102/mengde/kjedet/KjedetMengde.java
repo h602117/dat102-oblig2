@@ -17,6 +17,20 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 	}
 
 	@Override
+	public T get(int idx) {
+		if (idx < 0 || idx >= this.antall) {
+			return null;
+		}
+
+		LinearNode<T> node = this.start;
+		for (int i = 0; i <= idx; i++) {
+			node = node.getNeste();
+		}
+
+		return node.getElement();
+	}
+
+	@Override
 	public void leggTil(T element) {
 		if (!(inneholder(element))) {
 			LinearNode<T> node = new LinearNode<T>(element);
