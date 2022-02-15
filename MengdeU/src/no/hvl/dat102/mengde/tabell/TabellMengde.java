@@ -202,4 +202,15 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		return new TabellIterator<T>(tab, antall);
 	}
 
+	@Override
+	public String toString() {
+		String resultat = "";
+
+		for (int i = 0; i < this.antall; i++) {
+			resultat += this.tab[i].toString() + "\t";
+		}
+
+		return resultat;
+	}
+
 }
