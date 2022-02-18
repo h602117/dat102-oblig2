@@ -6,7 +6,6 @@ import no.hvl.dat102.exceptions.EmptyCollectionException;
 public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeADT<T> {
 
 	private final static int STDK = 100;
-	private final static int IKKE_FUNNET = -1;
 	private int bak;
 	private T[] liste;
 
@@ -83,20 +82,34 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 
 	@Override
 	public boolean inneholder(T element) {
-		return (finn(element) != IKKE_FUNNET);
+		return (finn(element) != -1);
 	}
 
 	@Override
 	public T fjern(T element) {
-		// ...Fyll ut
-		return element;
+		int idx = this.finn(element);
+		if (idx == -1)
+			return null;
 
+		if (idx == this.bak)
+			return this.fjernSiste();
+
+		T el = this.liste[idx];
+		System.arraycopy(this.liste, idx, this.liste, idx + 1, this.bak - idx);
+		this.liste[this.bak] = null;
+		this.bak--;
+
+		return el;
 	}
 
 	private int finn(T el) {
-		int i = 0, resultat = IKKE_FUNNET;
-		// ...Fyll ut
-		return resultat;
+		for (int i = 0; i <= this.bak; i++) {
+			if (this.liste[i].equals(el)) {
+				return i;
+			}
+		}
+
+		return -1;
 	}
 
 	public String toString() {
