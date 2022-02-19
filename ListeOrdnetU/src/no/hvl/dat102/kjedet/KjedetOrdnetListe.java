@@ -74,6 +74,8 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		LinearNode<T> newNode = new LinearNode<T>(element);
 		if (this.foerste == null) {
 			this.foerste = newNode;
+			this.antall++;
+			return;
 		}
 
 		LinearNode<T> curr = this.foerste;
@@ -142,6 +144,19 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 			}
 		}
 		return resultat;
+	}
+
+	@Override
+	public String toString() {
+		String out = "";
+		LinearNode<T> node = this.foerste;
+
+		while (node != null) {
+			out += node.getElement().toString() + " ";
+			node = node.getNeste();
+		}
+
+		return out;
 	}
 
 }
