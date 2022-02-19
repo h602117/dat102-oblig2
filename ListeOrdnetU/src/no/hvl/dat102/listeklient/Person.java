@@ -42,13 +42,15 @@ public class Person implements Comparable<Person> {
 		return fornavn;
 	}
 
+	@Override
 	public String toString() {
 		return (foedselsaar + "\t" + etternavn + ", " + fornavn);
 	}
 
+	@Override
 	public int compareTo(Person denAndrePersonen) {
 		if (this.foedselsaar != denAndrePersonen.getFoedselsaar())
-			return this.foedselsaar < denAndrePersonen.getFoedselsaar() ? 1 : -1;
+			return this.foedselsaar > denAndrePersonen.getFoedselsaar() ? 1 : -1;
 
 		if (!this.etternavn.equals(denAndrePersonen.getEtternavn()))
 			return this.etternavn.compareTo(denAndrePersonen.getEtternavn());

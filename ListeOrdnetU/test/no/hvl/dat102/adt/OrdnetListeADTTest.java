@@ -59,10 +59,10 @@ public abstract class OrdnetListeADTTest {
 
 	@Test
 	public void visOrdnetIkkeStigende() {
-		liste.leggTil(e0);
 		liste.leggTil(e1);
-		liste.leggTil(e2);
 		liste.leggTil(e3);
+		liste.leggTil(e2);
+		liste.leggTil(e0);
 		liste.leggTil(e4);
 		assert liste.fjernSiste().equals(e4);
 		assert liste.fjernSiste().equals(e3);
