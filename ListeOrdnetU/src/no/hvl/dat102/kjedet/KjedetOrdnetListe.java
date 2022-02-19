@@ -31,7 +31,13 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 			throw new EmptyCollectionException("ordnet liste");
 
 		T el = this.siste.getElement();
-		this.siste = null;
+
+		LinearNode<T> n = this.foerste;
+		for (int i = 0; i < this.antall - 2; i++) {
+			n = n.getNeste();
+		}
+
+		this.siste = n;
 		this.antall--;
 
 		return el;
@@ -65,7 +71,29 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 
 	@Override
 	public void leggTil(T element) {
-		siste.setNeste(new LinearNode<T>(element));
+//		if (this.foerste == null) {
+//			this
+//		}
+//		if (this.siste == null) {
+//			this.foerste.setNeste(new LinearNode<T>(element));
+//			this.siste = this.foerste.getNeste();
+//		} else {
+//			siste.setNeste(new LinearNode<T>(element));
+//			this.siste = this.siste.getNeste();
+//		}
+//
+//		this.antall++;
+		LinearNode<T> n = new LinearNode<T>(element);
+		if (this.foerste == null) {
+			this.foerste = n;
+		} else if (this.siste == null) {
+			this.foerste.setNeste(n);
+			this.siste = n;
+		} else {
+			this.siste.setNeste(n);
+			this.siste = this.siste.getNeste();
+		}
+
 		this.antall++;
 	}
 

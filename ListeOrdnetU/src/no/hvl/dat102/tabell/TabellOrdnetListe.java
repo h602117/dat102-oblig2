@@ -6,7 +6,7 @@ import no.hvl.dat102.exceptions.EmptyCollectionException;
 public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeADT<T> {
 
 	private final static int STDK = 100;
-	private int bak;
+	private int antall;
 	private T[] liste;
 
 	public TabellOrdnetListe() {
@@ -14,7 +14,7 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 	}
 
 	public TabellOrdnetListe(int startKapasitet) {
-		bak = 0;
+		antall = 0;
 		liste = (T[]) (new Comparable[startKapasitet]);
 	}
 
@@ -23,9 +23,8 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (erTom())
 			throw new EmptyCollectionException("ordnet liste");
 
-		T el = this.liste[this.bak];
-		this.liste[this.bak] = null;
-		this.bak--;
+		T el = this.liste[--this.antall];
+		this.liste[this.antall] = null;
 
 		return el;
 	}
@@ -37,9 +36,9 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 
 		T el = this.liste[0];
 
-		System.arraycopy(this.liste, 0, this.liste, 1, this.bak);
-		this.liste[this.bak] = null;
-		this.bak--;
+		System.arraycopy(this.liste, 1, this.liste, 0, this.antall);
+		this.liste[this.antall] = null;
+		this.antall--;
 
 		return el;
 	}
@@ -58,26 +57,26 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (erTom())
 			throw new EmptyCollectionException("ordnet liste");
 
-		return this.liste[this.bak];
+		return this.liste[this.antall];
 	}
 
 	@Override
 	public boolean erTom() {
-		return (bak == 0);
+		return antall == 0;
 	}
 
 	@Override
 	public int antall() {
-		return bak;
+		return antall;
 	}
 
 	@Override
 	public void leggTil(T element) {
-		if (this.bak == this.liste.length - 1) {
+		if (this.antall == this.liste.length - 1) {
 			this.utvid();
 		}
 
-		this.liste[++this.bak] = element;
+		this.liste[this.antall++] = element;
 	}
 
 	@Override
@@ -91,19 +90,19 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		if (idx == -1)
 			return null;
 
-		if (idx == this.bak)
+		if (idx == this.antall - 1)
 			return this.fjernSiste();
 
 		T el = this.liste[idx];
-		System.arraycopy(this.liste, idx, this.liste, idx + 1, this.bak - idx);
-		this.liste[this.bak] = null;
-		this.bak--;
+		System.arraycopy(this.liste, idx + 1, this.liste, idx, this.antall - idx);
+		this.liste[this.antall] = null;
+		this.antall--;
 
 		return el;
 	}
 
 	private int finn(T el) {
-		for (int i = 0; i <= this.bak; i++) {
+		for (int i = 0; i < this.antall; i++) {
 			if (this.liste[i].equals(el)) {
 				return i;
 			}
@@ -112,12 +111,14 @@ public class TabellOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		return -1;
 	}
 
+	@Override
 	public String toString() {
 		String resultat = "";
 
-		for (int i = 0; i < bak; i++) {
+		for (int i = 0; i < antall; i++) {
 			resultat = resultat + liste[i].toString() + "\n";
 		}
+
 		return resultat;
 	}
 
