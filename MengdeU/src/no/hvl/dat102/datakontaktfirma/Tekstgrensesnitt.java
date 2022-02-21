@@ -10,6 +10,26 @@ public class Tekstgrensesnitt {
 
     public static void main(String[] args) {
 
+        DataKontakt arkiv = new DataKontakt();
+        Medlem m1 = new Medlem("test");
+        Medlem m2 = new Medlem("testine");
+        Medlem m3 = new Medlem("tinder");
+        Medlem m4 = new Medlem("tinderine");
+        MengdeADT<Hobby> h1 = new TabellMengde<Hobby>();
+        h1.leggTil(new Hobby("ski"));
+        MengdeADT<Hobby> h2 = new TabellMengde<Hobby>();
+        h2.leggTil(new Hobby("fotball"));
+
+        m1.setHobbyer(h1);
+        m2.setHobbyer(h2);
+        m3.setHobbyer(h1);
+        m4.setHobbyer(h2);
+        arkiv.leggTilMedlem(m1);
+        arkiv.leggTilMedlem(m2);
+        arkiv.leggTilMedlem(m3);
+        arkiv.leggTilMedlem(m4);
+
+        skrivParListe(arkiv);
     }
 
     private static String skaffString(Scanner s, String prompt) {
@@ -52,13 +72,15 @@ public class Tekstgrensesnitt {
     }
 
     public static void skrivParListe(DataKontakt arkiv) {
-        MengdeADT<Medlem> harPartner = new TabellMengde<Medlem>();
+        // MengdeADT<Medlem> harPartner = new TabellMengde<Medlem>();
         Iterator<Medlem> it = arkiv.getMedlemmer().iterator();
 
         while (it.hasNext()) {
             Medlem m = it.next();
-            if (m.getStatusIndeks() == -1) {
-                harPartner.leggTil(m);
+            int pIdx = arkiv.finnPartnerFor(m.getNavn());
+            if (pIdx != -1) {
+                Medlem partner = arkiv.getMedlemmer().get(m.getStatusIndeks());
+                System.out.println(m.getNavn() + " " + partner.getNavn());
             }
         }
     }

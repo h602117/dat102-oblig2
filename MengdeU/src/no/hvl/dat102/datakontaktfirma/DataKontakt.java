@@ -43,6 +43,7 @@ public class DataKontakt {
         Medlem m = this.medlemmer.get(this.finnMedmelsIndeks(medlemsnavn));
         for (int i = 0; i < this.antall; i++) {
             if (m.passerTil(this.medlemmer.get(i))) {
+                m.setStatusIndeks(i);
                 return i;
             }
         }
