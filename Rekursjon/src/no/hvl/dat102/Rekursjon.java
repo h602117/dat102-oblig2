@@ -60,7 +60,7 @@ public class Rekursjon {
 
     public static void main(String[] args) {
 
-        System.out.println("a)\n S(100) = " + sum(100) + "\n");
+        System.out.println("a)\nS(100) = " + sum(100) + "\n");
 
         System.out.println("b)");
         for (int i = 0; i <= 10; i++) {
