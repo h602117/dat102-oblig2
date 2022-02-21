@@ -6,9 +6,9 @@ public class Rekursjon {
     public static int sum(int n) {
         if (n == 1) {
             return 1;
-        } else {
-            return n + sum(n - 1);
         }
+
+        return n + sum(n - 1);
     }
 
     // b)
@@ -16,7 +16,6 @@ public class Rekursjon {
         if (n == 0) {
             return 2;
         }
-
         if (n == 1) {
             return 5;
         }
@@ -38,7 +37,6 @@ public class Rekursjon {
 
     // d)
     public static int fnUtenRekursjon(int n) {
-
         if (n == 0) {
             return 0;
         }
@@ -48,14 +46,14 @@ public class Rekursjon {
 
         int prev1 = 0;
         int prev2 = 1;
-        int sum = 0;
 
         for (int i = 2; i <= n; i++) {
-            sum = prev1 + prev2;
+            int tmp = prev1 + prev2;
             prev1 = prev2;
-            prev2 = sum;
+            prev2 = tmp;
         }
-        return sum;
+
+        return prev2;
     }
 
     public static void main(String[] args) {
