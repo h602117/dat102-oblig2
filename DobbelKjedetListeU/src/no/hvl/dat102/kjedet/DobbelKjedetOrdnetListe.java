@@ -11,7 +11,9 @@ public class DobbelKjedetOrdnetListe<T extends Comparable<T>> implements DobbelK
 	public DobbelKjedetOrdnetListe(T minVerdi, T maksVerdi) {
 		this.foerste = new DobbelNode<T>(minVerdi);
 		this.siste = new DobbelNode<T>(maksVerdi);
-		this.antall = 0;
+		this.foerste.setNeste(this.siste);
+		this.siste.setForrige(this.foerste);
+		this.antall = 2;
 	}
 
 	@Override
@@ -27,7 +29,6 @@ public class DobbelKjedetOrdnetListe<T extends Comparable<T>> implements DobbelK
 		aktuell.getForrige().setNeste(nyNode);
 		aktuell.setForrige(nyNode);
 		antall++;
-
 	}
 
 	@Override
@@ -98,16 +99,6 @@ public class DobbelKjedetOrdnetListe<T extends Comparable<T>> implements DobbelK
 	}
 
 	public void visListe() {
-		/*
-		 * DobbelNode<T> node = foerste;
-		 * 
-		 * while (node != null && node != siste) {
-		 * System.out.println(node.getElement() + " ");
-		 * node = node.getNeste();
-		 * }
-		 */
-
 		System.out.println(toString());
 	}
-
 }
