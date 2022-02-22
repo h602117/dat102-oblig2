@@ -9,10 +9,12 @@ import no.hvl.dat102.tabell.TabellOrdnetListe;
 
 public class Main {
 
-	private static final int EG_VIL_IKKJE_SKRIVA = 1;
+	private static int EG_VIL_IKKJE_SKRIVA = 1;
 
 	public static void main(String[] args) {
+		System.out.println("Tabell:");
 		tabell();
+		System.out.println("Kjedet:");
 		kjedet();
 	}
 

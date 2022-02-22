@@ -15,17 +15,21 @@ public class KlientDobbelKjedetListe {
 
 		}
 
+		System.out.println("Liste:");
 		System.out.println(liste);
 
+		System.out.println("Liste reversert:");
 		System.out.println(liste.tilStrengBaklengs());
 
 		liste.fjern("m");
-
+		System.out.println("Liste fjern 'm':");
 		System.out.println(liste);
 
 		liste.fjern("t");
+		System.out.println("Liste fjern 't':");
 		System.out.println(liste);
 
+		System.out.println("visListe():");
 		liste.visListe();
 	}
 
